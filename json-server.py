@@ -36,10 +36,10 @@ class JSONServer(HandleRequests):
 
         elif url["requested_resource"] == "ships":
             if url["pk"] != 0:
-                response_body = retrieve_ship(url["pk"])
+                response_body = retrieve_ship(url["pk"], url)
                 return self.response(response_body, status.HTTP_200_SUCCESS.value)
 
-            response_body = list_ships()
+            response_body = list_ships(url)
             return self.response(response_body, status.HTTP_200_SUCCESS.value)
 
         else:
@@ -135,7 +135,7 @@ class JSONServer(HandleRequests):
                 return self.response("", 201)
 
         else:
-            return self.response("Not found", 404)
+            return self.response("Not found", status.value)
 
 
 #
